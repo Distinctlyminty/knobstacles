@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Knobstacles.com – Identify Your Knobstacle</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    background: #f7f7f7;
+    color: #333;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-weight: normal;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    margin-bottom: 2rem;
+  }
+
+  input[type="text"] {
+    padding: 0.5rem;
+    width: 250px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    border: none;
+    background: #ff5722;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .profile-card h3 {
+    margin: 0.5rem 0;
+  }
+
+  .knob-rating {
+    font-size: 1.5rem;
+    color: #ff5722;
+  }
+
+  footer {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<h1>Have a Knobstacle in Your Life?</h1>
+<h2>A Knobstacle is someone who is a knob and always getting in the way.</h2>
+
+<form id="knobForm">
+  <input type="text" id="knobName" placeholder="Enter your Knobstacle's name…" required>
+  <button type="submit">Identify My Knobstacle</button>
+</form>
+
+<div id="profileContainer"></div>
+
+<footer>
+  © 2025 Knobstacles.com. No Knobstacles were harmed in the making of this site.
+</footer>
+
+<script>
+const excuses = [
+  "Likes to explain things they don’t understand.",
+  "Has opinions on everything – except the things that matter.",
+  "Thinks every meeting needs to be a meeting about meetings.",
+  "Believes Slack is for sharing memes, not progress.",
+  "Insists on 'quick fixes' that take three days."
+];
+
+const copingMechanisms = [
+  "Deep breaths and a stiff coffee.",
+  "Noise-canceling headphones and a mute button.",
+  "Counting to ten… again and again.",
+  "Polite nodding while mentally escaping to the beach.",
+  "A good old-fashioned eye-roll behind the monitor."
+];
+
+document.getElementById('knobForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById('knobName').value.trim();
+  if (!name) return;
+
+  const knobRating = Math.floor(Math.random() * 5) + 1;
+  const excuse = excuses[Math.floor(Math.random() * excuses.length)];
+  const coping = copingMechanisms[Math.floor(Math.random() * copingMechanisms.length)];
+
+  const profileHTML = `
+    <div class="profile-card">
+      <h3>${name}</h3>
+      <p><strong>Knobstacle Rating:</strong> <span class="knob-rating">${"🔩".repeat(knobRating)}</span></p>
+      <p><strong>Excuse:</strong> ${excuse}</p>
+      <p><strong>Suggested Coping Mechanism:</strong> ${coping}</p>
+      <button onclick="shareKnobstacle('${name}', '${excuse}', '${coping}')">Share Your Knobstacle</button>
+    </div>
+  `;
+
+  document.getElementById('profileContainer').innerHTML = profileHTML;
+});
+
+function shareKnobstacle(name, excuse, coping) {
+  const shareText = `My Knobstacle is ${name}.\nExcuse: ${excuse}\nCoping Mechanism: ${coping}\n#Knobstacles`;
+  if (navigator.share) {
+    navigator.share({
+      title: 'Knobstacle Profile',
+      text: shareText,
+      url: window.location.href
+    }).catch(console.error);
+  } else {
+    alert("Share feature not supported. Copy and paste:\n\n" + shareText);
+  }
+}
+</script>
+
+</body>
+</html>
